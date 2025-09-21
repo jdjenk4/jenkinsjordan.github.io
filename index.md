@@ -10,11 +10,11 @@ Each artifact demonstrates skills in software engineering, design, testing, and 
 **Description:**  
 This artifact demonstrates the translation of **Exceptions.cpp** (C++) into **Python**.  
 It showcases:
-- Standard exceptions (`ValueError`, `ZeroDivisionError`)  
-- Custom exceptions (subclassing `Exception`)  
+- Standard exceptions (`ValueError`, `ZeroDivisionError`)
+- Custom exceptions (subclassing `Exception`)
 - Nested `try/except` handling  
 
-👉 [View the Python file](ExceptionsEnhancement/main.py)
+👉 [View the Python file on GitHub](https://github.com/jdjenk4/jenkinsjordan.github.io/blob/branch-one/ExceptionsEnhancement/main.py)
 
 ---
 
