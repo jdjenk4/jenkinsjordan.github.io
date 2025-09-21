@@ -14,7 +14,7 @@ It showcases:
 - Custom exceptions (subclassing `Exception`)
 - Nested `try/except` handling  
 
-👉 https://github.com/jdjenk4/jenkinsjordan.github.io/blob/branch-one/ExceptionsEnhancement/main.py
+👉 [Visit my code!](https://github.com/jdjenk4/jenkinsjordan.github.io/blob/branch-one/ExceptionsEnhancement/main.py)
 
 ---
 
