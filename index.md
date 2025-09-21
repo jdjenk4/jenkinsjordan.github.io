@@ -1,5 +1,3 @@
-# Jordan Jenkins – Computer Science Capstone Portfolio
-
 Welcome to my GitHub Pages site!  
 This portfolio showcases artifacts from my Computer Science Capstone at **Southern New Hampshire University**.  
 Each artifact demonstrates skills in software engineering, design, testing, and enhancement.
