@@ -18,6 +18,7 @@ using std::unique_ptr;
 using std::make_unique;
 using std::cerr;
 using std::cout;
+using std::endl;
 
 // Namespace for declaring global variables
 namespace
@@ -58,7 +59,8 @@ int main(int argc, char* argv[])
 
 	// Initialization
 	g_ShaderManager = make_unique<ShaderManager>();
-	g_ViewManager = make_unique<ViewManager>(g_ShaderManager.get());
+	g_SceneManager = make_unique<SceneManager>(g_ShaderManager.get());
+	g_ViewManager = make_unique<ViewManager>(g_ShaderManager.get(), g_SceneManager.get());
 
 	// try to create the main display window
 	g_Window = g_ViewManager->CreateDisplayWindow(WINDOW_TITLE);
@@ -71,12 +73,11 @@ int main(int argc, char* argv[])
 
 	// load the shader code from the external GLSL files
 	g_ShaderManager->LoadShaders(
-		"../../Utilities/shaders/vertexShader.glsl",
-		"../../Utilities/shaders/fragmentShader.glsl");
+		"shaders/vertexShader.glsl",
+		"shaders/fragmentShader.glsl");
 	g_ShaderManager->use();
 
 	// try to create a new scene manager object and prepare the 3D scene
-	g_SceneManager = make_unique<SceneManager>(g_ShaderManager.get());
 	g_SceneManager->PrepareScene();
 
 	// loop will keep running until the application is closed 

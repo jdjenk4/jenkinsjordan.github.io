@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include "ShaderManager.h"
-#include "ShapeMeshes.h"
+#include "shaders/ShaderManager.h"
+#include "3dShapes/ShapeMeshes.h"
 
 #include <string>
 #include <vector>
@@ -44,6 +44,9 @@ public:
 		float shininess;
 		std::string tag;
 	};
+	void ToggleLighting();
+	void ToggleTextures();
+	void CycleMaterial();
 
 private:
 	// pointer to shader manager object
@@ -56,6 +59,10 @@ private:
 	TEXTURE_INFO m_textureIDs[16];
 	// defined object materials
 	std::vector<OBJECT_MATERIAL> m_objectMaterials;
+
+	bool m_bLightingEnabled = true;
+	bool m_bTexturesEnabled = true;
+	int m_currentMaterialIndex = 0;
 
 	// load texture images and convert to OpenGL texture data
 	bool CreateGLTexture(const char* filename, std::string tag);

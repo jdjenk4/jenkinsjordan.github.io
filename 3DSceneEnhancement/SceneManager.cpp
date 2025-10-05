@@ -7,12 +7,13 @@
 //	Created for CS-330-Computational Graphics and Visualization, Nov. 1st, 2023
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <iostream>
+#include <memory>
 #include "SceneManager.h"
+#include "3dShapes/ShapeMeshes.h"
 
-#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#endif
 
 #include <glm/gtx/transform.hpp>
 
@@ -375,12 +376,12 @@ void SceneManager::LoadSceneTextures() {
 
 	bool bReturn = false;
 
-	bReturn = CreateGLTexture("woodtexture.jpg", "table");
-	bReturn = CreateGLTexture("bowlBase.jpg", "bowlbase");
-	bReturn = CreateGLTexture("teal.jpg", "bowllip");
-	bReturn = CreateGLTexture("teal.jpg", "bowl");
-	bReturn = CreateGLTexture("breadcrust.jpg", "breadcrust");
-	bReturn = CreateGLTexture("eggshell.jpg", "egg");
+	bReturn = CreateGLTexture("textures/woodtexture.jpg", "table");
+	bReturn = CreateGLTexture("textures/bowlBase.jpg", "bowlbase");
+	bReturn = CreateGLTexture("textures/teal.jpg", "bowllip");
+	bReturn = CreateGLTexture("textures/teal.jpg", "bowl");
+	bReturn = CreateGLTexture("textures/breadcrust.jpg", "breadcrust");
+	bReturn = CreateGLTexture("textures/eggshell.jpg", "egg");	
 
 	BindGLTextures();
 }
@@ -603,4 +604,33 @@ void SceneManager::RenderScene()
 	SetShaderMaterial("bread");
 
 	m_basicMeshes->DrawHalfSphereMesh();
+}
+
+void SceneManager::ToggleLighting() {
+	m_bLightingEnabled = !m_bLightingEnabled;
+	if (m_pShaderManager) {
+		m_pShaderManager->setBoolValue("bUseLighting", m_bLightingEnabled);
+		cout << "[Toggle Lighting] " << (m_bLightingEnabled ? " Enabled" : "Disabled") << endl;
+	}
+}
+
+void SceneManager::ToggleTextures() {
+	m_bTexturesEnabled = !m_bTexturesEnabled;
+	if (m_pShaderManager) {
+		m_pShaderManager->setBoolValue("bUseTexture", m_bTexturesEnabled);
+		cout << "[Toggle] Textures " << (m_bTexturesEnabled ? "Enabled" : "Diasbled") << endl;
+	}
+}
+
+void SceneManager::CycleMaterial() {
+	if (m_objectMaterials.empty()) return;
+	m_currentMaterialIndex = (m_currentMaterialIndex + 1) % m_objectMaterials.size();
+	const auto& nextMat = m_objectMaterials[m_currentMaterialIndex];
+	cout << "[Cycle] Using material: " << nextMat.tag << endl;
+
+	m_pShaderManager->setVec3Value("material.ambientColor", nextMat.ambientColor);
+	m_pShaderManager->setFloatValue("material.ambientStrength", nextMat.ambientStrength);
+	m_pShaderManager->setVec3Value("material.diffuseColor", nextMat.diffuseColor);
+	m_pShaderManager->setVec3Value("material.specularColor", nextMat.specularColor);
+	m_pShaderManager->setFloatValue("material.shininess", nextMat.shininess);
 }

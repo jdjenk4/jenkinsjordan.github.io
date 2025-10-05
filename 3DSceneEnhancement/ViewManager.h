@@ -11,6 +11,7 @@
 
 #include "ShaderManager.h"
 #include "camera.h"
+#include "SceneManager.h"
 
 // GLFW library
 #include "GLFW/glfw3.h" 
@@ -20,7 +21,7 @@ class ViewManager
 public:
 	// constructor
 	ViewManager(
-		ShaderManager* pShaderManager);
+		ShaderManager* pShaderManager, SceneManager* pSceneManager);
 	// destructor
 	~ViewManager();
 
@@ -30,6 +31,8 @@ public:
 private:
 	// pointer to shader manager object
 	ShaderManager* m_pShaderManager;
+	// pointer to scene manager object
+	SceneManager* m_pSceneManager;
 	// active OpenGL display window
 	GLFWwindow* m_pWindow;
 

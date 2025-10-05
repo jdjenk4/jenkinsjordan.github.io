@@ -37,6 +37,16 @@ public:
     void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
     void ProcessMouseScroll(float yoffset);
 
+    void Reset() {
+        Position = glm::vec3(0.0f, 5.0f, 12.0f);
+        Front = glm::vec3(0.0f, -0.5f, -2.0f);
+        Up = glm::vec3(0.0f, 1.0f, 0.0f);
+        Yaw = -90.0f;
+        Pitch = 0.0f;
+        Zoom = 80.0f;
+        updateCameraVectors();
+    }
+
 private:
     void updateCameraVectors();
 };

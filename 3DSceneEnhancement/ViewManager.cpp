@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "ViewManager.h"
+#include "SceneManager.h"
 
 // GLM Math Header inclusions
 #include <glm/glm.hpp>
@@ -55,10 +56,11 @@ namespace
  *  The constructor for the class
  ***********************************************************/
 ViewManager::ViewManager(
-	ShaderManager *pShaderManager)
+	ShaderManager *pShaderManager, SceneManager* pSceneManager)
 {
 	// initialize the member variables
 	m_pShaderManager = pShaderManager;
+	m_pSceneManager = pSceneManager;
 	m_pWindow = NULL;
 	g_pCamera = make_unique<Camera>();
 	// default camera view parameters
@@ -212,6 +214,65 @@ void ViewManager::ProcessKeyboardEvents()
 		g_pCamera->Front = glm::vec3(0.0f, -0.5f, -2.0f);
 		g_pCamera->Up = glm::vec3(0.0f, 1.0f, 0.0f);
 		g_pCamera->Zoom = 80;
+	}
+	// Toggle lighting
+	{
+		static bool lPressed = false;
+		if (glfwGetKey(m_pWindow, GLFW_KEY_L) == GLFW_PRESS)
+		{
+			if (!lPressed)
+			{
+				extern unique_ptr<SceneManager> g_SceneManager;
+				g_SceneManager->ToggleLighting();
+				lPressed = true;
+			}
+		}
+		else lPressed = false;
+	}
+
+	// Toggle textures
+	{
+		static bool tPressed = false;
+		if (glfwGetKey(m_pWindow, GLFW_KEY_T) == GLFW_PRESS)
+		{
+			if (!tPressed)
+			{
+				extern unique_ptr<SceneManager> g_SceneManager;
+				g_SceneManager->ToggleTextures();
+				tPressed = true;
+			}
+		}
+		else tPressed = false;
+	}
+
+	// Cycle materials
+	{
+		static bool mPressed = false;
+		if (glfwGetKey(m_pWindow, GLFW_KEY_M) == GLFW_PRESS)
+		{
+			if (!mPressed)
+			{
+				extern unique_ptr<SceneManager> g_SceneManager;
+				g_SceneManager->CycleMaterial();
+				mPressed = true;
+			}
+		}
+		else mPressed = false;
+	}
+
+	// Reset camera
+	{
+		static bool rPressed = false;
+		if (glfwGetKey(m_pWindow, GLFW_KEY_R) == GLFW_PRESS)
+		{
+			if (!rPressed && g_pCamera)
+			{
+				g_pCamera->Reset();
+				cout << "[Camera] Reset to default position." << endl;
+				rPressed = true;
+			}
+		}
+		else rPressed = false;
 	}
 }
 
