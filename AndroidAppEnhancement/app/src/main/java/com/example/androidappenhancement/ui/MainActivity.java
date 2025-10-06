@@ -1,4 +1,4 @@
-package com.zybooks.cs360projectthree;
+package com.example.androidappenhancement.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.telephony.SmsManager;
+
+import com.example.androidappenhancement.data.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     EditText nameText, passwordText;
