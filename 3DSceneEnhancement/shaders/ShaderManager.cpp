@@ -99,7 +99,7 @@ void ShaderManager::setSampler2DValue(const std::string& name, int slot) const {
     glUniform1i(glGetUniformLocation(m_ID, name.c_str()), slot);
 }
 
-// ✅ NEW: add cube map support for reflections
+// Add cube map support for reflections
 void ShaderManager::setSamplerCubeValue(const std::string& name, int slot) const {
     glUniform1i(glGetUniformLocation(m_ID, name.c_str()), slot);
 }
