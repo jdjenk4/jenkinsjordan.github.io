@@ -34,3 +34,6 @@ captures/
 
 # Misc
 *.hprof
+
+# Archive files
+*.zip
