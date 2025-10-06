@@ -20,7 +20,7 @@ It showcases:
 - 🔁 Nested `try/except` handling  
 - 🧾 Improved structure and readability while maintaining functional parity  
 
-👉 **[Visit my code!](https://github.com/jdjenk4/jenkinsjordan.github.io/tree/branch-one/ExceptionsEnhancement)**
+👉 **[View the ExceptionsEnhancement Project!](https://github.com/jdjenk4/jenkinsjordan.github.io/tree/branch-one/ExceptionsEnhancement)**
 
 ---
 
