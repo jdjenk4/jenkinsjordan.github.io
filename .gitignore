@@ -1,0 +1,11 @@
+# Ignore enhancement projects and archives on main
+AndroidAppEnhancement/
+AndroidAppEnhancement.zip
+ExceptionsEnhancement/
+3DSceneEnhancement/
+*.zip
+.gradle/
+.idea/
+build/
+local.properties
+*.iml
