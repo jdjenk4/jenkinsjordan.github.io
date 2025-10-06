@@ -1,47 +1,50 @@
-Welcome to my GitHub Pages site!  
-This portfolio showcases artifacts from my Computer Science Capstone at **Southern New Hampshire University**.  
-Each artifact demonstrates skills in software engineering, design, testing, and enhancement.
+# Jordan Jenkins's homepage
+
+Welcome to my software engineering portfolio.  
+This site highlights key enhancements and artifacts developed as part of my **SNHU CS-499 Capstone Project**, demonstrating applied skills in software design, security, and performance optimization.
 
 ---
 
-## 📂 Capstone Artifacts
+## 🧠 Capstone Artifacts
 
-### Artifact One: ExceptionsEnhancement
+### **Artifact One: ExceptionsEnhancement**
 **Description:**  
-This artifact demonstrates the translation of **Exceptions.cpp** (C++) into **Python**.  
+This artifact demonstrates the translation of `Exceptions.cpp` (C++) into Python.  
 It showcases:
 - Standard exceptions (`ValueError`, `ZeroDivisionError`)
 - Custom exceptions (subclassing `Exception`)
-- Nested `try/except` handling  
+- Nested `try`/`except` handling  
+- Improved structure and readability while maintaining functional parity
 
-👉 [Visit my code!](https://github.com/jdjenk4/jenkinsjordan.github.io/blob/branch-one/ExceptionsEnhancement/main.py)
+👉 [Visit my code!](https://github.com/jdjenk4/jenkinsjordan.github.io/tree/branch-one/ExceptionsEnhancement)
 
 ---
 
-### Artifact Two: (Placeholder)
+### **Artifact Two: 3DSceneEnhancement**
 **Description:**  
-This section will contain the second capstone artifact.  
+This artifact enhances a C++ OpenGL graphics program with:
+- **Memory optimization** using `std::unique_ptr`  
+- **Shader control improvements** (reflections, lighting toggles)  
+- **Data structure refinement** for efficient scene management  
+- **File I/O restructuring** for cleaner rendering pipeline handling  
 
-👉 [Coming soon]
+👉 [View the 3DSceneEnhancement Project](https://github.com/jdjenk4/jenkinsjordan.github.io/tree/branch-two/3DSceneEnhancement)
 
 ---
 
-### Artifact Three: (Placeholder)
+### **Artifact Three: AndroidAppEnhancement**
 **Description:**  
-This section will contain the third capstone artifact.  
+An Android application demonstrating secure database handling and improved user experience through modern Android best practices:
+- Parameterized SQL queries for injection protection  
+- Hashed + salted passwords for secure authentication  
+- Unique usernames and error-safe registration flow  
+- SMS sending with permission validation  
+- Navigation component with multiple fragments (Login, Register, Home)  
+- Threaded background database operations for smooth UI performance
 
-👉 [Coming soon]
-
----
-
-## 📝 Professional Self-Assessment
-This section will contain my professional self-assessment, highlighting:  
-- My growth throughout the Computer Science program  
-- Strengths and areas of improvement  
-- Application of skills in real-world and academic projects  
+👉 [View the AndroidAppEnhancement Project](https://github.com/jdjenk4/jenkinsjordan.github.io/tree/branch-three/AndroidAppEnhancement)
 
 ---
 
-## 🌐 About This Site
-This site is powered by **GitHub Pages** and is intended to serve as a professional portfolio.  
-It contains project artifacts, narratives, and reflections that illustrate the skills gained during my Computer Science degree program.
+This project is maintained by [jdjenk4](https://github.com/jdjenk4)  
+Hosted on GitHub Pages — Theme by [orderedlist](https://github.com/orderedlist)
