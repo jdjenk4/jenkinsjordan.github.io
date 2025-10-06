@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AndroidAppEnhancement</string>
+    <string name="hint_username">Enter your name</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_sms">Send SMS (Test)</string>
+    <string name="label_welcome">Welcome!</string>
+    <string name="back_to_login">Back to login</string>
+</resources>

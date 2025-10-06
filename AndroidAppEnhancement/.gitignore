@@ -1,0 +1,39 @@
+# Android build and gradle files
+.gradle/
+build/
+*/build/
+local.properties
+gradle-app.setting
+.gradle-cache/
+.gradle-task-history/
+
+# IntelliJ/Android Studio
+*.iml
+.idea/
+!.idea/codeStyles/
+!.idea/runConfigurations/
+!.idea/vcs.xml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Capture and generated content
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.ap_
+
+# Log files
+*.log
+
+# Keystore files (if any)
+*.jks
+*.keystore
+
+# Misc
+*.hprof
+
+# Archive files
+*.zip
