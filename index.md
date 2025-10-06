@@ -1,4 +1,4 @@
-# Jordan Jenkins's homepage
+# Homepage
 
 Welcome to my software engineering portfolio.  
 This site highlights key enhancements and artifacts developed as part of my **SNHU CS-499 Capstone Project**, demonstrating applied skills in software design, security, and performance optimization.
