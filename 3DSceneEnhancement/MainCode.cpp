@@ -1,5 +1,6 @@
 #include <iostream>         // error handling and output
 #include <cstdlib>          // EXIT_FAILURE
+#include <memory>
 
 #include <GL/glew.h>        // GLEW library
 #include "GLFW/glfw3.h"     // GLFW library
@@ -14,6 +15,9 @@
 #include "ShapeMeshes.h"
 #include "ShaderManager.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 using std::unique_ptr;
 using std::make_unique;
 using std::cerr;
@@ -23,140 +27,183 @@ using std::endl;
 // Namespace for declaring global variables
 namespace
 {
-	// Macro for window title
-	const char* const WINDOW_TITLE = "Capstone Project"; 
+    const char* const WINDOW_TITLE = "Capstone Project";
+    GLFWwindow* g_Window = nullptr;
 
-	// Main GLFW window
-	GLFWwindow* g_Window = nullptr;
+    unique_ptr<SceneManager> g_SceneManager;
+    unique_ptr<ShaderManager> g_ShaderManager;
+    unique_ptr<ViewManager> g_ViewManager;
 
-	// scene manager object for managing the 3D scene prepare and render
-	unique_ptr<SceneManager> g_SceneManager;
-	// shader manager object for dynamic interaction with the shader code
-	unique_ptr<ShaderManager> g_ShaderManager;
-	// view manager object for managing the 3D view setup and projection to 2D
-	unique_ptr<ViewManager> g_ViewManager;
+    // === Reflection feature ===
+    bool g_ReflectionEnabled = false;
+    GLuint g_EnvCubemap = 0;
+    float g_Reflectivity = 0.6f;
+
+    glm::vec3 g_CameraPos(0.0f, 1.0f, 5.0f); // Used for reflection direction
 }
 
-// Function declarations - all functions that are called manually
-// need to be pre-declared at the beginning of the source code.
+// Function declarations
 bool InitializeGLFW();
 bool InitializeGLEW();
-
+GLuint LoadCubemap(const std::vector<std::string>& faces);
+void ProcessInput(GLFWwindow* window);
 
 /***********************************************************
  *  main(int, char*)
- *
- *  This function gets called after the application has been
- *  launched.
  ***********************************************************/
 int main(int argc, char* argv[])
 {
-	// if GLFW fails initialization, then terminate the application
-	if (InitializeGLFW() == false)
-	{
-		return(EXIT_FAILURE);
-	}
+    if (!InitializeGLFW()) return EXIT_FAILURE;
 
-	// Initialization
-	g_ShaderManager = make_unique<ShaderManager>();
-	g_SceneManager = make_unique<SceneManager>(g_ShaderManager.get());
-	g_ViewManager = make_unique<ViewManager>(g_ShaderManager.get(), g_SceneManager.get());
+    g_ShaderManager = make_unique<ShaderManager>();
+    g_SceneManager = make_unique<SceneManager>(g_ShaderManager.get());
+    g_ViewManager = make_unique<ViewManager>(g_ShaderManager.get(), g_SceneManager.get());
 
-	// try to create the main display window
-	g_Window = g_ViewManager->CreateDisplayWindow(WINDOW_TITLE);
+    g_Window = g_ViewManager->CreateDisplayWindow(WINDOW_TITLE);
 
-	// if GLEW fails initialization, then terminate the application
-	if (InitializeGLEW() == false)
-	{
-		return(EXIT_FAILURE);
-	}
+    if (!InitializeGLEW()) return EXIT_FAILURE;
 
-	// load the shader code from the external GLSL files
-	g_ShaderManager->LoadShaders(
-		"shaders/vertexShader.glsl",
-		"shaders/fragmentShader.glsl");
-	g_ShaderManager->use();
+    // === Load and use shaders ===
+    g_ShaderManager->LoadShaders(
+        "shaders/vertexShader.glsl",
+        "shaders/fragmentShader.glsl");
+    g_ShaderManager->use();
 
-	// try to create a new scene manager object and prepare the 3D scene
-	g_SceneManager->PrepareScene();
+    // === Load environment cube map ===
+    g_EnvCubemap = LoadCubemap({
+        "textures/env/right.jpg",
+        "textures/env/left.jpg",
+        "textures/env/top.jpg",
+        "textures/env/bottom.jpg",
+        "textures/env/front.jpg",
+        "textures/env/back.jpg"
+    });
 
-	// loop will keep running until the application is closed 
-	// or until an error has occurred
-	while (!glfwWindowShouldClose(g_Window))
-	{
-		// Enable z-depth
-		glEnable(GL_DEPTH_TEST);
+    g_ShaderManager->setSamplerCubeValue("u_EnvMap", 1);
+    g_ShaderManager->setFloatValue("u_Reflectivity", g_Reflectivity);
+    g_ShaderManager->setBoolValue("u_ReflectionEnabled", g_ReflectionEnabled);
 
-		// Clear the frame and z buffers
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // === Prepare 3D Scene ===
+    g_SceneManager->PrepareScene();
 
-		// convert from 3D object space to 2D view
-		g_ViewManager->PrepareSceneView();
+    // === Main Loop ===
+    while (!glfwWindowShouldClose(g_Window))
+    {
+        ProcessInput(g_Window);
 
-		// refresh the 3D scene
-		g_SceneManager->RenderScene();
+        // Enable z-depth
+        glEnable(GL_DEPTH_TEST);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        g_ShaderManager->use();
+        g_ShaderManager->setVec3Value("viewPosition", g_CameraPos);
+        g_ShaderManager->setBoolValue("u_ReflectionEnabled", g_ReflectionEnabled);
 
-		// Flips the the back buffer with the front buffer every frame.
-		glfwSwapBuffers(g_Window);
+        g_ViewManager->PrepareSceneView();
+        g_SceneManager->RenderScene();
 
-		// query the latest GLFW events
-		glfwPollEvents();
-	}
+        glfwSwapBuffers(g_Window);
+        glfwPollEvents();
+    }
 
-	// Terminates the program successfully
-	return EXIT_SUCCESS; 
+    return EXIT_SUCCESS;
 }
 
 /***********************************************************
- *	InitializeGLFW()
- * 
- *  This function is used to initialize the GLFW library.   
+ *  InitializeGLFW()
  ***********************************************************/
 bool InitializeGLFW()
 {
-	// GLFW: initialize and configure library
-	// --------------------------------------
-	glfwInit();
-
+    glfwInit();
 #ifdef __APPLE__
-	// set the version of OpenGL and profile to use
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #else
-	// set the version of OpenGL and profile to use
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
-	// GLFW: end -------------------------------
-
-	return(true);
+    return true;
 }
 
 /***********************************************************
- *	InitializeGLEW()
- *
- *  This function is used to initialize the GLEW library.
+ *  InitializeGLEW()
  ***********************************************************/
 bool InitializeGLEW()
 {
-	// GLEW: initialize
-	GLenum GLEWInitResult = GLEW_OK;
+    GLenum GLEWInitResult = glewInit();
+    if (GLEW_OK != GLEWInitResult)
+    {
+        cerr << glewGetErrorString(GLEWInitResult) << endl;
+        return false;
+    }
 
-	// try to initialize the GLEW library
-	GLEWInitResult = glewInit();
-	if (GLEW_OK != GLEWInitResult)
-	{
-		cerr << glewGetErrorString(GLEWInitResult) << endl;
-		return false;
-	}
+    cout << "INFO: OpenGL Successfully Initialized\n";
+    cout << "INFO: OpenGL Version: " << glGetString(GL_VERSION) << "\n" << endl;
+    return true;
+}
 
-	// Displays a successful OpenGL initialization message
-	cout << "INFO: OpenGL Successfully Initialized\n";
-	cout << "INFO: OpenGL Version: " << glGetString(GL_VERSION) << "\n" << endl;
+/***********************************************************
+ *  ProcessInput()
+ *  Handles keypresses for reflection toggle
+ ***********************************************************/
+void ProcessInput(GLFWwindow* window)
+{
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 
-	return true;
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+    {
+        static bool pressed = false;
+        if (!pressed)
+        {
+            g_ReflectionEnabled = !g_ReflectionEnabled;
+            cout << (g_ReflectionEnabled ? "Reflection ON" : "Reflection OFF") << endl;
+            pressed = true;
+        }
+    }
+    else
+    {
+        // Reset flag so next press can toggle again
+        static bool pressed = false;
+        pressed = false;
+    }
+}
+
+/***********************************************************
+ *  LoadCubemap()
+ *  Loads a cube map texture for environment reflections
+ ***********************************************************/
+GLuint LoadCubemap(const std::vector<std::string>& faces)
+{
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    int width, height, nrChannels;
+    unsigned char* data;
+    for (GLuint i = 0; i < faces.size(); i++)
+    {
+        data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height,
+                         0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            stbi_image_free(data);
+        }
+        else
+        {
+            cerr << "Failed to load cubemap texture at path: " << faces[i] << endl;
+            stbi_image_free(data);
+        }
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    return textureID;
 }

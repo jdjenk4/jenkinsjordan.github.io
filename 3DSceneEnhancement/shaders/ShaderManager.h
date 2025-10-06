@@ -22,6 +22,7 @@ public:
     void setVec4Value(const std::string& name, const glm::vec4& value) const;
     void setMat4Value(const std::string& name, const glm::mat4& mat) const;
     void setSampler2DValue(const std::string& name, int slot) const;
+    void setSamplerCubeValue(const std::string& name, int slot) const;
 
 private:
     GLuint m_ID;  // Shader program ID

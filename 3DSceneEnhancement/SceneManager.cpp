@@ -12,7 +12,6 @@
 #include "SceneManager.h"
 #include "3dShapes/ShapeMeshes.h"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 #include <glm/gtx/transform.hpp>
