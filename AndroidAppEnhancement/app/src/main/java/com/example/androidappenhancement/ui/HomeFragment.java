@@ -13,11 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.androidappenhancement.R;
 
-/**
- * HomeFragment
- * -------------------------
- * Simple home screen after successful login.
- */
+// Simple home screen after successful login
 public class HomeFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
