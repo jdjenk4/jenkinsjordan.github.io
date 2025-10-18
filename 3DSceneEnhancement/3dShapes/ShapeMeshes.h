@@ -23,5 +23,4 @@ public:
 
 private:
     GLuint planeVAO, sphereVAO, cylinderVAO, torusVAO, taperedCylinderVAO, halfSphereVAO, dummyVAO;
-    // + VBO/EBO as needed
 };
