@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <!-- Top toolbar that NavigationUI will control -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,7 +16,6 @@
         app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Include main content with navigation host -->
     <include
         layout="@layout/content_main"
         android:layout_width="match_parent"
