@@ -41,7 +41,7 @@ uniform sampler2D objectTexture;
 uniform vec3  viewPosition;
 uniform vec2  UVscale          = vec2(1.0f, 1.0f);
 
-// === Reflection controls ===
+// Reflection controls
 uniform bool  u_ReflectionEnabled = false;
 uniform samplerCube u_EnvMap;
 uniform float u_Reflectivity = 0.0;
@@ -69,7 +69,7 @@ void main()
     vec3 norm = normalize(fragmentVertexNormal);
     vec4 baseColor;
 
-    // ======== Compute Base Lighting/Color ========
+    // Compute Base Lighting/Color
     if (bUseLighting)
     {
         vec3 viewDir = normalize(viewPosition - fragmentPosition);
@@ -103,7 +103,7 @@ void main()
             baseColor = objectColor;
     }
 
-    // ======== Optional Reflection Blending ========
+    // Optional Reflection Blending
     if (u_ReflectionEnabled)
     {
         vec3 I = normalize(fragmentPosition - viewPosition);
