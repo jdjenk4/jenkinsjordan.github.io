@@ -19,11 +19,7 @@ import com.example.androidappenhancement.data.DatabaseHelper;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * RegisterFragment
- * -------------------------
- * Handles secure new user registration using DatabaseHelper.
- */
+// Handles secure new user registration using DatabaseHelper
 public class RegisterFragment extends Fragment {
 
     private EditText editUsername, editPassword;
