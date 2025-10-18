@@ -19,11 +19,7 @@ import com.example.androidappenhancement.data.DatabaseHelper;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * LoginFragment
- * -------------------------
- * Handles secure user authentication using DatabaseHelper.
- */
+// Handles secure user authentication using DatabaseHelper
 public class LoginFragment extends Fragment {
 
     private EditText editUsername, editPassword;
