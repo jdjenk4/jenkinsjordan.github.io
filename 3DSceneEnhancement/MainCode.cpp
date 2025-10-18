@@ -38,7 +38,7 @@ using std::cerr;
 using std::cout;
 using std::endl;
 
-// Namespace for declaring global variables
+// Declaration of global variables
 namespace
 {
     const char* const WINDOW_TITLE = "Capstone Project";
@@ -48,7 +48,7 @@ namespace
     unique_ptr<ShaderManager> g_ShaderManager;
     unique_ptr<ViewManager> g_ViewManager;
 
-    // === Reflection feature ===
+    // Reflection feature
     bool g_ReflectionEnabled = false;
     GLuint g_EnvCubemap = 0;
     float g_Reflectivity = 0.6f;
@@ -56,15 +56,12 @@ namespace
     glm::vec3 g_CameraPos(0.0f, 1.0f, 5.0f); // Used for reflection direction
 }
 
-// Function declarations
+// Declarations
 bool InitializeGLFW();
 bool InitializeGLEW();
 GLuint LoadCubemap(const std::vector<std::string>& faces);
 void ProcessInput(GLFWwindow* window);
 
-/***********************************************************
- *  main(int, char*)
- ***********************************************************/
 int main(int argc, char* argv[])
 {
     if (!InitializeGLFW()) return EXIT_FAILURE;
@@ -77,13 +74,13 @@ int main(int argc, char* argv[])
 
     if (!InitializeGLEW()) return EXIT_FAILURE;
 
-    // === Load and use shaders ===
+    // Load and use shaders
     g_ShaderManager->LoadShaders(
         "shaders/vertexShader.glsl",
         "shaders/fragmentShader.glsl");
     g_ShaderManager->use();
 
-    // === Load environment cube map ===
+    // Load environment cube map
     g_EnvCubemap = LoadCubemap({
         "textures/env/right.jpg",
         "textures/env/left.jpg",
@@ -97,10 +94,10 @@ int main(int argc, char* argv[])
     g_ShaderManager->setFloatValue("u_Reflectivity", g_Reflectivity);
     g_ShaderManager->setBoolValue("u_ReflectionEnabled", g_ReflectionEnabled);
 
-    // === Prepare 3D Scene ===
+    // Prepare 3D Scene
     g_SceneManager->PrepareScene();
 
-    // === Main Loop ===
+    // Main Loop
     while (!glfwWindowShouldClose(g_Window))
     {
         ProcessInput(g_Window);
@@ -124,9 +121,6 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-/***********************************************************
- *  InitializeGLFW()
- ***********************************************************/
 bool InitializeGLFW()
 {
     glfwInit();
@@ -142,9 +136,6 @@ bool InitializeGLFW()
     return true;
 }
 
-/***********************************************************
- *  InitializeGLEW()
- ***********************************************************/
 bool InitializeGLEW()
 {
     GLenum GLEWInitResult = glewInit();
@@ -159,10 +150,6 @@ bool InitializeGLEW()
     return true;
 }
 
-/***********************************************************
- *  ProcessInput()
- *  Handles keypresses for reflection toggle
- ***********************************************************/
 void ProcessInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -186,10 +173,6 @@ void ProcessInput(GLFWwindow* window)
     }
 }
 
-/***********************************************************
- *  LoadCubemap()
- *  Loads a cube map texture for environment reflections
- ***********************************************************/
 GLuint LoadCubemap(const std::vector<std::string>& faces)
 {
     GLuint textureID;
