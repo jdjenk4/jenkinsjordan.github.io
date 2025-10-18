@@ -5,9 +5,10 @@ Jordan Jenkins
 
 Artifact Two
 
-The purpose of this program is to showcase the enhancement of a 3d scene utilizin C++. Sveral enhancements were 
+The purpose of this program is to showcase the enhancement of a 3d scene utilizing C++. Sveral enhancements were 
 made to optimize the memory usage, add additional keyboard functionality, and add an additional realism element via
-a reflective surface.
+a reflective surface. This enhancement is meant to highlight the algorithms that dtermine the lighting and textured 
+surfaces in the scene.
 */
 
 
