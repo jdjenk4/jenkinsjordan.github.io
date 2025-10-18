@@ -70,7 +70,7 @@ bool ShaderManager::LoadShaders(const char* vertexPath, const char* fragmentPath
 
 void ShaderManager::use() { glUseProgram(m_ID); }
 
-// --- Uniform setters ---
+// Uniform setters
 void ShaderManager::setBoolValue(const std::string& name, bool value) const {
     glUniform1i(glGetUniformLocation(m_ID, name.c_str()), (int)value);
 }
