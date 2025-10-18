@@ -1,3 +1,17 @@
+/*
+CS-499-10453-M01 Computer Science Capstone 2025
+Southern New Hampshire University
+Jordan Jenkins
+
+Artifact Three
+
+The purpose of this program is to showcase the enhancement of a mobile application in java. The enhancements that
+were made improved the security of registration and storing of passwords into the local database via a salt and hash 
+as well as parameterizing SQL queries to prevent SWL injection. Additional enhancements included cleaning up 
+the UI/UX, implementing logic to keep unique usernames to prevent duplication and easier authentication lookups, 
+and error catching.
+*/
+
 package com.example.androidappenhancement.ui;
 
 import android.os.Bundle;
