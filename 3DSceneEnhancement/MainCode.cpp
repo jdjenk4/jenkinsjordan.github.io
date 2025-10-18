@@ -1,9 +1,22 @@
-#include <iostream>         // error handling and output
-#include <cstdlib>          // EXIT_FAILURE
+/*
+CS-499-10453-M01 Computer Science Capstone 2025
+Southern New Hampshire University
+Jordan Jenkins
+
+Artifact Two
+
+The purpose of this program is to showcase the enhancement of a 3d scene utilizin C++. Sveral enhancements were 
+made to optimize the memory usage, add additional keyboard functionality, and add an additional realism element via
+a reflective surface.
+*/
+
+
+#include <iostream>
+#include <cstdlib>
 #include <memory>
 
-#include <GL/glew.h>        // GLEW library
-#include "GLFW/glfw3.h"     // GLFW library
+#include <GL/glew.h>
+#include "GLFW/glfw3.h"
 
 // GLM Math Header inclusions
 #include <glm/glm.hpp>
