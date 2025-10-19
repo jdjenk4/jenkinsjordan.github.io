@@ -9,9 +9,9 @@ Throughout my Computer Science program and Capstone experience at Southern New H
 
 ## <ins> Professional Growth and Technical Development </ins>
 Early in the program, I focused primarily on getting code to work and understanding basic principles. Over time, I learned to approach software development as a process that integrates design planning, documentation, testing, and maintenance.<br/>
-In `ExceptionsEnhancement`, I applied structured exception handling and input validation to produce reliable Python code that communicates clearly to technical and non-technical users. This reinforced my ability to translate logic across languages while preserving functionality.<br/>
-The `3DSceneEnhancement` project challenged me to think about efficiency and scalability. I refactored a legacy OpenGL program using modern C++ practices such as smart pointers and modular design patterns. This enhancement deepened my understanding of memory management, object-oriented principles, and graphics pipeline architecture.<br/>
-With `AndroidAppEnhancement`, I shifted focus toward software security and user experience. Implementing parameterized SQL queries, password hashing, and modular database design strengthened my ability to write a secure application that reflects real-world industry practices.
+- In `ExceptionsEnhancement`, I applied structured exception handling and input validation to produce reliable Python code that communicates clearly to technical and non-technical users. This reinforced my ability to translate logic across languages while preserving functionality.<br/>
+- The `3DSceneEnhancement` project challenged me to think about efficiency and scalability. I refactored a legacy OpenGL program using modern C++ practices such as smart pointers and modular design patterns. This enhancement deepened my understanding of memory management, object-oriented principles, and graphics pipeline architecture.<br/>
+- With `AndroidAppEnhancement`, I shifted focus toward software security and user experience. Implementing parameterized SQL queries, password hashing, and modular database design strengthened my ability to write a secure application that reflects real-world industry practices.
 
 ## <ins>Communication and Collaboration</ins>
 Effective communication has been essential to my success. Through GitHub, I maintained organized branches for each enhancement and documented every change. These practices mimic real-world version control workflows and collaborative development environments.
