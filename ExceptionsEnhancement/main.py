@@ -20,7 +20,7 @@ class CustomException(Exception):
 def do_even_more_custom_application_logic():
     # Always raise a standard exception
     raise ValueError("Standard exception occurred!")
-    # Note: no return here, function always raises
+    # No return here, function always raises
 
 
 def do_custom_application_logic():
