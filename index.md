@@ -9,7 +9,7 @@ This site highlights key enhancements and artifacts developed as part of my **SN
 
 ### **Artifact One: ExceptionsEnhancement**
 
-<ins>Description</ins>:  
+**<ins>Description</ins>:**  
 This artifact demonstrates the translation of `Exceptions.cpp` (C++) into **Python**.  
 It showcases:
 
@@ -24,7 +24,7 @@ It showcases:
 
 ### **Artifact Two: 3DSceneEnhancement**
 
-<ins>Description</ins>:  
+**<ins>Description</ins>:**  
 This artifact enhances a **C++ OpenGL graphics program** with the following improvements:
 
 -  Memory optimization using `std::unique_ptr`  
@@ -38,7 +38,7 @@ This artifact enhances a **C++ OpenGL graphics program** with the following impr
 
 ### **Artifact Three: AndroidAppEnhancement**
 
-<ins>Description</ins>:  
+**<ins>Description</ins>:**  
 An **Android application** demonstrating secure database handling and improved user experience through modern Android best practices:
 
 -  Parameterized SQL queries for injection protection  
